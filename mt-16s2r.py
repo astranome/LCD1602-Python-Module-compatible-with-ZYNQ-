@@ -12,6 +12,8 @@
 #--------------------------------------
  
 # The wiring for the LCD is as follows:
+# 15: LCD Backlight +5V**
+# 16: LCD Backlight GND
 # 1 : GND
 # 2 : 5V
 # 3 : Contrast (0-5V)*
@@ -26,13 +28,12 @@
 # 12: Data Bit 5
 # 13: Data Bit 6
 # 14: Data Bit 7
-# 15: LCD Backlight +5V**
-# 16: LCD Backlight GND
+
 import gpiod
 import time
 from gpiod.line import Direction, Value 
 import time
- 
+# You can get the Pin names by `gpioinfo`
 # Define GPIO to LCD mapping
 LCD_RS = "P9"
 LCD_E  = "P7"
@@ -54,7 +55,7 @@ LCD_LINE_2 = 0x10 # LCD RAM address for the 2nd line
 # Timing constants
 E_PULSE = 0.0005
 E_DELAY = 0.0005
-
+# You can get the chip name by `gpiodetect`
 def output(line_offset, val, chip_path="/dev/gpiochip0"):
     value_str = {Value.ACTIVE: "Active", Value.INACTIVE: "Inactive"}
     if val == True:
